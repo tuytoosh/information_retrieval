@@ -1,3 +1,5 @@
+import operator
+
 def tag_remove(text) :
 	while True:
 		index1 = text.find("<");
@@ -7,24 +9,50 @@ def tag_remove(text) :
 		text = text[: index1] + text[index2 + 1 :]
 	return text;
 
-f = open('cranfieldDocs/cranfield0001','r')
-message = f.read()
-
-text = tag_remove(message);
-text = text.replace('\n', ' ');
-text = text.replace('/', '');
-text = text.replace('.', ' ');
-# print(text)
-items = text.split(' ');
-while '' in items : items.remove('')
-
-freq = {}
-for item in items :
-	if item in freq :
-		freq[item] = freq[item] + 1;
+def get_number(number) :
+	if number > 999 :
+		return str(number);
+	elif number > 99:
+		return "0" + str(number);
+	elif number > 9 :
+		return "00" + str(number);
 	else :
-		freq[item] = 1;
+		return "000" + str(number);
 
-print(freq)
+freq = {};
+size_of_corpus = 0;
+for count in range(1, 1400) :
+	f = open('cranfieldDocs/cranfield' + get_number(count),'r')
+	message = f.read()
+	f.close()
+	text = tag_remove(message);
 
-f.close()
+	# replace with space char
+	text = text.replace('\n', ' ');
+	text = text.replace('.', ' ');
+
+	# remove this chars
+	text = text.replace('/', '');
+	text = text.replace('(', '');
+	text = text.replace(')', '');
+
+	# remove all empty arrays
+	items = text.split(' ');
+	while '' in items : items.remove('')
+
+
+	for item in items :
+		size_of_corpus += 1;
+		if item in freq :
+			freq[item] = freq[item] + 1;
+		else :
+			freq[item] = 1;
+
+
+print("size of vocab : ", len(freq));
+
+sorted_freq = sorted(freq.items(), key = operator.itemgetter(1), reverse = True )
+
+# print(sorted_freq)
+
+print("size of corpus : ", size_of_corpus);
