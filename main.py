@@ -12,8 +12,13 @@ f = open('cranfieldDocs/cranfield0001','r')
 message = f.read()
 
 text = tag_remove(message);
+text = text.replace('\n', ' ');
+text = text.replace('/', '');
+text = text.replace('.', ' ');
+# print(text)
+items = text.split(' ');
+while '' in items : items.remove('')
 
-items = text.split(' ')
 
 print(items)
 
