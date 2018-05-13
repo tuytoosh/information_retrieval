@@ -7,7 +7,6 @@ def tag_remove(text) :
 		text = text[: index1] + text[index2 + 1 :]
 	return text;
 
-
 f = open('cranfieldDocs/cranfield0001','r')
 message = f.read()
 
@@ -19,8 +18,13 @@ text = text.replace('.', ' ');
 items = text.split(' ');
 while '' in items : items.remove('')
 
+freq = {}
+for item in items :
+	if item in freq :
+		freq[item] = freq[item] + 1;
+	else :
+		freq[item] = 1;
 
-print(items)
-
+print(freq)
 
 f.close()
