@@ -10,10 +10,12 @@ def tag_remove(text) :
 
 f = open('cranfieldDocs/cranfield0001','r')
 message = f.read()
-# print(message)
-f.close()
 
-# text = "<a>hello world!</a><apan>test is here!</span>"
-print(tag_remove(message));
-# for i in range(1, 1500) :
-	
+text = tag_remove(message);
+
+items = text.split(' ')
+
+print(items)
+
+
+f.close()
