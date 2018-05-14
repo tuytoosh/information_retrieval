@@ -40,7 +40,6 @@ for count in range(1, 1400) :
 	items = text.split(' ');
 	while '' in items : items.remove('')
 
-
 	for item in items :
 		size_of_corpus += 1;
 		if item in freq :
@@ -49,10 +48,27 @@ for count in range(1, 1400) :
 			freq[item] = 1;
 
 
-print("size of vocab : ", len(freq));
+vocab_size = len(freq);
+print("size of vocab : ", vocab_size);
 
 sorted_freq = sorted(freq.items(), key = operator.itemgetter(1), reverse = True )
 
 # print(sorted_freq)
 
 print("size of corpus : ", size_of_corpus);
+
+# print(sorted_freq[0][1])
+
+
+count = 0
+size = 0
+for item in sorted_freq :
+	if size < (size_of_corpus / 2) :
+		size = size + item[1];
+		count = count + 1;
+	else : 
+		break;
+
+print("the most ... : ", count)
+
+
