@@ -1,11 +1,18 @@
 import operator
 from classes.Main import Main
+import random;
+
 main = Main()
 
 freq = {};
 size_of_corpus = 0;
-for count in range(1, 1400) :
-	f = open('cranfieldDocs/cranfield' + main.get_number(count),'r')
+
+count_of_docs = random.randint(10, 1400);
+
+print('count of docs : ', count_of_docs);
+
+for count in range(1, count_of_docs) :
+	f = open('cranfieldDocs/cranfield' + main.get_number(count),'r');
 	message = f.read()
 	f.close()
 	text = main.tag_remove(message);
@@ -22,7 +29,7 @@ for count in range(1, 1400) :
 vocab_size = len(freq);
 print("size of vocab : ", vocab_size);
 
-sorted_freq = sorted(freq.items(), key = operator.itemgetter(1), reverse = True )
+sorted_freq = sorted(freq.items(), key = operator.itemgetter(1), reverse = True );
 
 # print(sorted_freq)
 

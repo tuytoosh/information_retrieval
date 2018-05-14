@@ -1,35 +1,40 @@
 import operator
+from classes.PorterStemmer import PorterStemmer
+from classes.StopWordEliminater import StopWordEliminater
 from classes.Main import Main
 main = Main()
+p = PorterStemmer();
+e = StopWordEliminater();
 
 freq = {};
 size_of_corpus = 0;
+
 for count in range(1, 1400) :
 	f = open('cranfieldDocs/cranfield' + main.get_number(count),'r')
 	message = f.read()
 	f.close()
 	text = main.tag_remove(message);
 	items = main.tokenize(text);
+	items = e.eliminate(items);
 
 	for item in items :
+		word = p.stem(item, 0,len(item)-1)
 		size_of_corpus += 1;
-		if item in freq :
-			freq[item] = freq[item] + 1;
+		if word in freq :
+			freq[word] = freq[word] + 1;
 		else :
-			freq[item] = 1;
-
+			freq[word] = 1;
 
 vocab_size = len(freq);
 print("size of vocab : ", vocab_size);
 
-sorted_freq = sorted(freq.items(), key = operator.itemgetter(1), reverse = True )
+sorted_freq = sorted(freq.items(), key = operator.itemgetter(1), reverse = True)
 
 # print(sorted_freq)
 
 print("size of corpus : ", size_of_corpus);
 
 # print(sorted_freq[0][1])
-
 
 count = 0
 size = 0
